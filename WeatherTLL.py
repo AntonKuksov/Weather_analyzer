@@ -16,7 +16,7 @@ def forecast():
     print((datetime.datetime.fromtimestamp(time)).strftime('%H:%M:%S'))
 
     if result < 0:
-        print("TODAY IS FUCKING COLD!")
+        print("TODAY IS COLD!")
     else:
         print("UHH, IT MAY BE BETTER...")
 

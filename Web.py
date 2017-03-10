@@ -3,6 +3,8 @@ import datetime
 from flask import Flask
 from flask import json
 from flask import render_template
+'''Whether analyzer in Tallinn, which show it in browser(by flask)
+some helpful information (decide what to wear for a walk)'''
 
 app = Flask(__name__)
 
@@ -41,12 +43,12 @@ def time():
 
 def answer():
     if forecast() < 0:
-        return "TODAY IS FUCKING COLD!"
+        return "TODAY IS COLD!"
     else:
         return "UHH, IT MAY BE BETTER..."
 
 def pic():
-    if 4 < 0:
+    if forecast() < 0:
         return "big.jpg"
     else:
         return "small.jpg"

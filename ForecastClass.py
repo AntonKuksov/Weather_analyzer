@@ -2,7 +2,6 @@ import requests
 import datetime
 import pyowm
 
-
 class Forecast:
 
     r = requests.get('http://api.openweathermap.org/data/2.5/weather?q=588409,ee&units=metric&appid=44b04c5c9801970e82bb155d508f5666')

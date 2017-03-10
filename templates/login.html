@@ -1,0 +1,27 @@
+<html>
+   <body>
+
+      <form action = "{{ url_for('hello') }}" method = "post">
+         <p>Enter POST Name:</p>
+         <p><input type = "text" name = "nm" /></p>
+         <p><input type = "submit" value = "submit" /></p>
+         <h1>   POST Hello <strong>{{name}}</strong>!</h1>
+      </form>
+
+
+         <form action="/foo" >
+            <button type="submit" value="Send Email" >NICE BUTTON</button>
+            <h1>   Word printed by NICE BUTTON: <strong>{{word}}</strong></h1>
+         </form>
+
+
+          <form action = "{{ url_for('hello') }}" method = "get">
+             <p>Enter GET Name:</p>
+             <p><input type = "text" name = "q" /></p>
+             <p><input type = "submit" value = "submit" /></p>
+             <h1>   GET Hello <strong>{{nameGET}}</strong>!</h1>
+          </form>
+
+
+   </body>
+</html>

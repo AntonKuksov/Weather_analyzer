@@ -15,7 +15,7 @@ def hello():
     return "Hello World!!!!!!!!!!"
 
 
-def intro(town):
+def intro(town="Tallinn"):
     srclink = 'http://api.openweathermap.org/data/2.5/weather?q=' + town +'&units=metric&appid=44b04c5c9801970e82bb155d508f5666'
     r = requests.get(srclink)
     data = r.json()
@@ -27,14 +27,23 @@ def index(g="Tallinn"):
 
     if request.method == 'POST':
         g = request.form['town']
-        forecast_data = {'temp': forecast(g), 'answer': answer(), 'time': time(g), 'icon': icon(g), 'pic': pic(),
-                         'desc': weather_name(g), 'clouds': clouds(g), 'wind_speed': wind_speed(g), 'wind_deg': wind_deg(g),
-                         'town': g}
-        return render_template("index.html", title='Get_Forecast', forecast=forecast_data)
+        if g == "":
+            g = "Tallinn"
+            print("That's OK " + g)
+            forecast_data = {'temp': forecast(g), 'time': time(g), 'icon': icon(g), 'pic': pic(g),
+                             'desc': weather_name(g), 'clouds': clouds(g), 'wind_speed': wind_speed(g), 'wind_deg': wind_deg(g),
+                             'town': g, 'rain':umbrella(g)}
+            return render_template("index.html", title='Get_Forecast', forecast=forecast_data)
+        else:
+            forecast_data = {'temp': forecast(g), 'time': time(g), 'icon': icon(g), 'pic': pic(g),
+                             'desc': weather_name(g), 'clouds': clouds(g), 'wind_speed': wind_speed(g),
+                             'wind_deg': wind_deg(g),
+                             'town': g, 'rain': umbrella(g)}
+            return render_template("index.html", title='Get_Forecast', forecast=forecast_data)
     else:
-        forecast_data = {'temp': forecast(g), 'answer': answer(), 'time': time(), 'icon': icon(), 'pic': pic(),
-                         'desc': weather_name(), 'clouds': clouds(), 'wind_speed': wind_speed(), 'wind_deg': wind_deg(),
-                         'town': g}
+        forecast_data = {'temp': forecast(g), 'time': time(g), 'icon': icon(g), 'pic': pic(g),
+                         'desc': weather_name(g), 'clouds': clouds(g), 'wind_speed': wind_speed(g), 'wind_deg': wind_deg(g),
+                         'town': g, 'rain':umbrella(g)}
         return render_template("index.html", title='Get_Forecast', forecast=forecast_data)
 
 
@@ -106,23 +115,64 @@ def time(a="Tallinn"):
     return ((datetime.datetime.fromtimestamp(time)).strftime('%H:%M:%S'))
 
 
-def answer():
-    if forecast() < 0:
-        return "TODAY IS COLD!"
+
+def umbrella(a="Tallinn"):
+    data = intro(a)
+    # d = data['main']['temp']
+    name = data['weather'][0]['main']
+    if name == "Thunderstorm" or name == "Drizzle" \
+            or name == "Rain":
+        return "rain.jpg"
     else:
-        return "UHH, IT MAY BE BETTER..."
+        return "white.jpg"
 
+@app.route("/pic")
+def pic(a="Tallinn"):
+    data = intro(a)
+    # d = data['main']['temp']
+    name = data['weather'][0]['main']
+    d = forecast(a)
+    # d = float(json.dumps(temp))
+    # name = json.dumps(icon1)
+    #name = weather_name(a)
 
-def pic():
-    if forecast() < -5:
-        if weather_name() == "Clear sky" or weather_name() == "Few clouds" or weather_name() == "Scattered clouds" \
-                or weather_name() == "Broken clouds" or weather_name() == "Snow":
+    if d < -5: #colder -5 C°
+        if name == "Snow" or name == "Atmosphere" or name == "Clear" \
+                or name == "Clouds" or name == "Extreme" or name == "Additional" or name == "Mist" or name == "Haze":
+            print(d, name)
             return "cold_dry.jpg"
-        if weather_name() == "Shower rain" or weather_name() == "Rain" \
-            or weather_name() == "Thunderstorm" or weather_name() == "Mist":
+        elif name == "Thunderstorm" or name == "Drizzle" \
+            or name == "Rain":
+            print(d, name)
             return "cold_rain.jpg"
-    elif forecast() < 0 and forecast() > -5:
-        return "small.jpg"
+    elif d >= -5 and d <= 5:  # -5 C° to 5 C° (forecast() < 0 and forecast() > -5)
+        if name == "Snow" or name == "Atmosphere" or name == "Clear" \
+                or name == "Clouds" or name == "Extreme" or name == "Additional" or name == "Mist" or name == "Haze":
+            print(d, name)
+            return "0_dry.jpg"
+        elif name == "Thunderstorm" or name == "Drizzle" \
+                or name == "Rain":
+            print(d, name)
+            return "0_rain.jpg"
+    elif d > 5 and d <= 12: # 5 C° to 12 C°
+        if name == "Snow" or name == "Atmosphere" or name == "Clear" \
+                or name == "Clouds" or name == "Extreme" or name == "Additional" or name == "Mist" or name == "Haze":
+            print(d, name)
+            return "warm_dry.jpg"
+        elif name == "Thunderstorm" or name == "Drizzle" \
+                or name == "Rain":
+            print(d, name)
+            return "warm_rain.jpg"
+    elif d > 12:  # 13 C° to HELL C°
+        if name == "Snow" or name == "Atmosphere" or name == "Clear" \
+                or name == "Clouds" or name == "Extreme" or name == "Additional" or name == "Mist" or name == "Haze":
+            print(d, name)
+            return "hot_dry.jpg"
+        elif name == "Thunderstorm" or name == "Drizzle" \
+                or name == "Rain":
+            print(d, name)
+            return "rain.jpg"
+
 
 if __name__ == "__main__":
     app.run ()

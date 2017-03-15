@@ -47,7 +47,7 @@ th, td {
     <td>Wind direction: {{forecast.wind_deg}}</td>
   </tr>
       <tr>
-    <td>{{forecast.answer}}</td>
+
   </tr>
     <tr>
     <td><form action = "{{ url_for('index') }}" method = "post">
@@ -56,6 +56,7 @@ th, td {
          <p><input type = "text" name = "town" /></p>
          <p><input type = "submit" value = "submit" /></p>
       </form></td>
+        <th><img src="static/images/{{forecast.rain}}" alt="" height="100" width="100"/></th>
   </tr>
 </table>
   </body>

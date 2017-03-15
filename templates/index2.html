@@ -1,0 +1,26 @@
+<h1 style="color: #5e9ca0;">&nbsp;</h1>
+<table class="editorDemoTable" style="height: 149px; float: left;" width="350">
+<thead>
+<tr>
+<td>Forecast for today</td>
+<td>Get into:</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="vertical-align: top;">
+<td>{{forecast.answer}}</td>
+<td>Weather data updated at: {{forecast.time}}</td>
+<td>Weather in Tallinn:<img src="http://openweathermap.org/img/w/{{forecast.icon}}.png" alt="pic of wheather" /></td>
+<td>Group of weather parameters:</td>
+<td>Temperature now: {{forecast.temp}}C&deg;</td>
+<td>Cloudiness, %:</td>
+<td>Wind speed:</td>
+<td>Wind direction:</td>
+</td>
+<td>&nbsp;
+<pre><img src="static/images/{{forecast.pic}}" alt="" height="420" width="420"/></pre>
+</td>
+</tr>
+</tbody>
+</table>

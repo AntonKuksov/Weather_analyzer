@@ -1,13 +1,62 @@
 <html>
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+</style>
   <head>
     <title>{{title}}</title>
   </head>
   <body>
-      <h1>Weather in Tallinn:<img src="http://openweathermap.org/img/w/{{forecast.icon}}.png"></h1>
-      <h1>Weather data updated at: {{forecast.time}}</h1>
-      <h1>Temperature now: {{forecast.temp}}C°</h1>
-      <h1>{{forecast.answer}}</h1>
-      <h2>Get into:<p><img src="static/images/{{forecast.pic}}"></p></h2>
-codrops.com
+      <!--<h1>Weather in Tallinn:<img src="http://openweathermap.org/img/w/{{forecast.icon}}.png"></h1>-->
+      <!--<h1>Weather data updated at: {{forecast.time}}</h1>-->
+      <!--<h1>Temperature now: {{forecast.temp}}C°</h1>-->
+      <!--<h1>{{forecast.answer}}</h1>-->
+      <!--<h2>Get into:<p><img src="static/images/{{forecast.pic}}"></p></h2>-->
+<table>
+  <tr>
+    <th>Forcast fot today</th>
+    <th>Get into:</th>
+  </tr>
+  <tr>
+    <td>Weather data updated at: {{forecast.time}}</td>
+    <th rowspan="8"><img src="static/images/{{forecast.pic}}" alt="" height="420" width="420"/></th>
+  </tr>
+  <tr>
+    <td>Weather in {{forecast.town}}:<img src="http://openweathermap.org/img/w/{{forecast.icon}}.png"
+                                                  alt="pic of wheather" /></td>
+  </tr>
+    <tr>
+    <td>{{forecast.desc}}</td>
+  </tr>
+    <tr>
+    <td>Temperature now: {{forecast.temp}}C&deg;</td>
+  </tr>
+      <tr>
+    <td>Cloudiness: {{forecast.clouds}}%</td>
+  </tr>
+      <tr>
+    <td>Wind speed: {{forecast.wind_speed}}m/s</td>
+  </tr>
+      <tr>
+    <td>Wind direction: {{forecast.wind_deg}}</td>
+  </tr>
+      <tr>
+    <td>{{forecast.answer}}</td>
+  </tr>
+    <tr>
+    <td><form action = "{{ url_for('index') }}" method = "post">
+        <p>Now exploring: {{forecast.town}}</p>
+        <p>Enter town:</p>
+         <p><input type = "text" name = "town" /></p>
+         <p><input type = "submit" value = "submit" /></p>
+      </form></td>
+  </tr>
+</table>
   </body>
 </html>

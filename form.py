@@ -13,7 +13,7 @@ def button():
 
 
 @app.route('/success/<name>')
-def success(name):
+def success(name="ebla"):
    return render_template('login.html', nameGET=name)
 
 @app.route('/hello/', methods=['POST','GET'])

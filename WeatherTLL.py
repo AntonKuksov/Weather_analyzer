@@ -8,6 +8,8 @@ def forecast():
     time_data = data['dt']
     result = int(temp)
     time = int(time_data)
+    icon = data['clouds']['all']
+    print(icon)
 
     icon = data['weather'][0]['icon']
     iconstr = str(icon)
